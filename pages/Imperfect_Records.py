@@ -5,7 +5,7 @@ from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import getSampleStyleSheet
 
-st.title("⚠️ Imperfect Records: Short / More")
+st.title("Imperfect Records: Short / More")
 
 def generate_pdf(df, title):
     buffer = BytesIO()
@@ -38,6 +38,6 @@ if 'merged_df' in st.session_state:
         csv = filtered.to_csv(index=False).encode('utf-8')
         st.download_button("📄 Download Imperfect Records as CSV", csv, file_name="imperfect_result.csv")
     else:
-        st.success("🎉 All records are OK. No imperfections found.")
+        st.success("All records are OK. No imperfections found.")
 else:
-    st.warning("⚠️ Please upload and process data from the Home page.")
+    st.warning("Please upload and process data from the Home page.")

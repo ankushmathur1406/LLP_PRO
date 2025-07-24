@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 st.set_page_config(page_title="Parts Availability Checker", layout="wide")
-st.title("🧩 Upload & Process Files")
+st.title("Upload & Process Files")
 
 table1 = st.file_uploader("Upload Parts Count Table (Excel or CSV)", type=['xlsx', 'csv'])
 table2 = st.file_uploader("Upload Part Details Table (Excel or CSV)", type=['xlsx', 'csv'])

@@ -8,9 +8,9 @@ from reportlab.lib.styles import getSampleStyleSheet
 
 st.set_page_config(page_title="Search by A/C")
 
-st.title("🔍 Search Aircraft Parts by A/C")
+st.title("Search Aircraft Parts by A/C")
 
-# PDF generator
+
 def generate_pdf(df, title):
     buffer = BytesIO()
     doc = SimpleDocTemplate(buffer, pagesize=A4)
@@ -29,7 +29,7 @@ def generate_pdf(df, title):
     buffer.close()
     return pdf
 
-# Ensure data exists
+
 if 'merged_df' in st.session_state:
     merged_df = st.session_state['merged_df']
     ac_list = merged_df['A/C'].unique().tolist()
@@ -39,7 +39,7 @@ if 'merged_df' in st.session_state:
     selected_ac = st.selectbox("✈️ Select Aircraft", options=ac_list)
     filter_option = st.radio("Show:", ["All", "Only Imperfect"], horizontal=True)
 
-    # Filter data
+    
     filtered_df = merged_df[merged_df['A/C'] == selected_ac]
     if filter_option == "Only Imperfect":
         filtered_df = filtered_df[filtered_df['result'] != "ok"]
@@ -48,14 +48,14 @@ if 'merged_df' in st.session_state:
         st.subheader(f"Results for A/C: {selected_ac} ({filter_option})")
         st.dataframe(filtered_df)
 
-        # Download PDF
+        
         pdf = generate_pdf(filtered_df, f"Parts for A/C {selected_ac} ({filter_option})")
         st.download_button("📄 Download as PDF", pdf, file_name=f"{selected_ac}_filtered.pdf")
 
-        # Download CSV
+        
         csv = filtered_df.to_csv(index=False).encode('utf-8')
         st.download_button("📄 Download as CSV", csv, file_name=f"{selected_ac}_filtered.csv")
     else:
         st.warning("No matching records found.")
 else:
-    st.warning("⚠️ Please upload and process data from the Home page first.")
+    st.warning("Please upload and process data from the Home page first.")
